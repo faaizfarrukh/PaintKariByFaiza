@@ -1,110 +1,134 @@
 
 
-"use client";
-import { motion, AnimatePresence } from "framer-motion";
-import React, { useState } from "react";
+
+  <!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PaintKari By Faiza</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+<script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+<script src="https://unpkg.com/framer-motion@10.16.4/dist/framer-motion.js"></script>
+<script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+<style>body{font-family:'Poppins',sans-serif}</style>
+</head>
+<body>
+<div id="root"></div>
+
+<script type="text/babel">
+const { useState } = React;
+const { motion, AnimatePresence } = Motion;
 
 const WHATSAPP_NUMBER = "923422142565";
-
-const CATEGORIES = [
-  "All",
-  "Fabric Paint",
-  "Bedsheets",
-  "Paint Hangings",
-  "Resin Work",
-  "Wall Paintings"
+const CATEGORIES = ["All","Fabric Paint","Bedsheets","Paint Hangings","Resin Work","Wall Paintings"];
+const PRODUCTS = [
+  { id: 1, cat: "Fabric Paint", name: "Handpainted Tulip Kurta Set", desc: "Pink tulips on light green kurta with dupatta", price: "Contact for Price", img: "https://i.ibb.co/n8nrFK4h/Whats-App-Image-2026-09-12-at-11-19-55-PM.jpg" },
+  { id: 2, cat: "Fabric Paint", name: "White Daisy Kurta Set", desc: "White kurta with pink daisy handpaint", price: "Contact for Price", img: "https://i.ibb.co/7dqng1zM/Whats-App-Image-2026-09-12-at-11-20-06-PM.jpg" },
+  { id: 3, cat: "Fabric Paint", name: "Mint Green Floral Lehenga", desc: "Mint choli with large coral handpainted flowers", price: "Contact for Price", img: "https://i.ibb.co/k63NS3yr/Whats-App-Image-2026-09-12-at-11-20-03-PM-2.jpg" },
+  { id: 4, cat: "Fabric Paint", name: "Beige Purple Rose 3pc", desc: "Beige suit with purple roses and magenta border", price: "Contact for Price", img: "https://i.ibb.co/HDK89t60/Whats-App-Image-2026-09-12-at-11-20-02-PM.jpg" },
+  { id: 5, cat: "Fabric Paint", name: "Sky Blue Magnolia 3pc", desc: "Sky blue kurta with large purple magnolia flowers", price: "Contact for Price", img: "https://i.ibb.co/rf5RLxbP/Whats-App-Image-2026-09-12-at-11-20-02-PM-1.jpg" },
+  { id: 6, cat: "Fabric Paint", name: "White Pink Floral Lehenga", desc: "White lehenga with pink florals and yellow accents", price: "Contact for Price", img: "https://i.ibb.co/n8nrFK4h/Whats-App-Image-2026-09-12-at-11-19-55-PM.jpg" },
+  { id: 7, cat: "Fabric Paint", name: "Baby Eid Dress", desc: "Handpainted Eid Mubarak collar dress for kids", price: "Contact for Price", img: "https://i.ibb.co/Gf2pNmpN/Whats-App-Image-2026-09-12-at-10-58-11-PM.jpg" },
+  { id: 8, cat: "Fabric Paint", name: "Yellow Floral Kurta", desc: "Yellow base with handpainted pink flowers", price: "Contact for Price", img: "https://i.ibb.co/ccvh6M56/Whats-App-Image-2026-09-12-at-11-20-04-PM.jpg" },
+  { id: 9, cat: "Fabric Paint", name: "Blue Peacock Kurta", desc: "Royal blue kurta with peacock feather paint", price: "Contact for Price", img: "https://i.ibb.co/rf5RLxbP/Whats-App-Image-2026-09-12-at-11-20-02-PM-1.jpg" },
+  { id: 10, cat: "Fabric Paint", name: "Lavender Floral 2pc", desc: "Lavender kurta with white flower bunches", price: "Contact for Price", img: "https://i.ibb.co/jP5DYG8Z/Whats-App-Image-2026-09-12-at-11-13-08-PM.jpg" },
+  { id: 11, cat: "Fabric Paint", name: "Orange Marigold Lehenga", desc: "Orange shalwar kameez with yellow marigold paint", price: "Contact for Price", img: "https://i.ibb.co/XZxgQGVm/Whats-App-Image-2026-09-12-at-11-20-07-PM-1.jpg" },
+  { id: 12, cat: "Fabric Paint", name: "Green Vine Kurta", desc: "Light green kurta with vine and leaf paint", price: "Contact for Price", img: "https://i.ibb.co/20BZSFdx/Whats-App-Image-2026-09-12-at-11-20-04-PM-1.jpg" },
+  { id: 13, cat: "Fabric Paint", name: "Red Floral Bridal Set", desc: "Red dupatta white kurti", price: "Contact for Price", img: "https://i.ibb.co/0jQWWMKc/Whats-App-Image-2026-09-13-at-12-38-17-AM-1.jpg" },
+  { id: 14, cat: "Fabric Paint", name: "White Butterfly Kurta", desc: "White kurta with colorful butterfly paint", price: "Contact for Price", img: "https://i.ibb.co/0jQWWMKc/Whats-App-Image-2026-09-13-at-12-38-17-AM-1.jpg" },
+  { id: 15, cat: "Fabric Paint", name: "Peach Blossom 3pc", desc: "Peach suit with pink blossom flowers", price: "Contact for Price", img: "https://i.ibb.co/h1ZbddX2/Whats-App-Image-2026-09-12-at-11-20-07-PM.jpg" },
+  { id: 16, cat: "Fabric Paint", name: "Hand Designed Jeans", desc: "GenZ Style Jeans with flame custom design", price: "Contact for Price", img: "https://i.ibb.co/dsNs8QYc/Whats-App-Image-2026-09-12-at-11-44-00-PM-1.jpg" },
+  { id: 17, cat: "Bedsheets", name: "Red Rose King Bedsheet", desc: "Cream base with large red roses + 2 pillow covers", price: "Contact for Price", img: "https://i.ibb.co/9HTYBDP1/Whats-App-Image-2026-09-12-at-11-27-04-PM.jpg" },
+  { id: 18, cat: "Bedsheets", name: "Abstract Floral Bedsheet", desc: "White base with colorful circles and black line art", price: "Contact for Price", img: "https://i.ibb.co/RGD7m4vm/Whats-App-Image-2026-09-12-at-11-43-37-PM.jpg" },
+  { id: 19, cat: "Paint Hangings", name: "Cherry Wooden Magnet Set", desc: "Natural wood slice handpainted cherry magnets", price: "Contact for Price", img: "https://i.ibb.co/wr3mJL93/Whats-App-Image-2026-09-12-at-11-41-12-PM.jpg" },
+  { id: 20, cat: "Paint Hangings", name: "Mini Forest Canvas", desc: "Round mini canvas with autumn forest landscape", price: "Contact for Price", img: "https://i.ibb.co/gM5cjhMr/Whats-App-Image-2026-09-12-at-11-44-58-PM.jpg" },
+  { id: 21, cat: "Resin Work", name: "Green Gold Resin Rehal", desc: "Allah Muhammad calligraphy rehal with glitter edges", price: "Contact for Price", img: "https://i.ibb.co/DHFSbGFS/Whats-App-Image-2026-09-12-at-11-37-43-PM.jpg" },
+  { id: 22, cat: "Resin Work", name: "Custom Nikkah Plaque", desc: "Resin plaque with names, date and Quran verse", price: "Contact for Price", img: "https://i.ibb.co/DP8bJKNW/Whats-App-Image-2026-09-12-at-11-34-41-PM.jpg" },
+  { id: 23, cat: "Resin Work", name: "Custom Name Keychain", desc: "Blue pearl resin keychain with custom name", price: "Contact for Price", img: "https://i.ibb.co/fYk0WNCY/Whats-App-Image-2026-09-13-at-12-11-01-AM.jpg" },
+  { id: 24, cat: "Resin Work", name: "Allah Car Hanging", desc: "Black and gold Allah calligraphy car hanging", price: "Contact for Price", img: "https://i.ibb.co/Y7sthzh6/Whats-App-Image-2026-09-12-at-11-28-14-PM.jpg" },
+  { id: 25, cat: "Wall Paintings", name: "Autumn Railway Path", desc: "Orange autumn trees with railway track canvas", price: "Contact for Price", img: "https://i.ibb.co/whH3pTwc/Whats-App-Image-2026-09-12-at-10-39-27-PM.jpg" },
+  { id: 26, cat: "Wall Paintings", name: "Golden Sunset Deer", desc: "Textured landscape with deer and wildflowers", price: "Contact for Price", img: "https://i.ibb.co/DgmxPTRL/Whats-App-Image-2026-09-12-at-10-40-34-PM.jpg" },
+  { id: 27, cat: "Wall Paintings", name: "Architectural Dome Art", desc: "Colorful city dome with birds and blue sky", price: "Contact for Price", img: "https://i.ibb.co/1GRHgdK7/Whats-App-Image-2026-09-12-at-10-40-34-PM-1.jpg" },
+  { id: 28, cat: "Wall Paintings", name: "3D Ferrari Resin Art", desc: "Red Ferrari with smoke and crystal texture frame", price: "Contact for Price", img: "https://i.ibb.co/hSK6q7d/Whats-App-Image-2026-09-12-at-10-40-33-PM.jpg" },
+  { id: 29, cat: "Wall Paintings", name: "Luxury Gold Peony Canvas", desc: "5x3ft grey and gold peony flower statement piece", price: "Contact for Price", img: "https://i.ibb.co/vCBj5Z0n/Whats-App-Image-2026-09-12-at-10-10-58-PM.jpg" },
+  { id: 30, cat: "Wall Paintings", name: "Culture From Past", desc: "Ancient cultural traditions reflection painting", price: "Contact for Price", img: "https://i.ibb.co/Nnjp9v19/Whats-App-Image-2026-09-12-at-10-40-37-PM.jpg" },
+  { id: 31, cat: "Wall Paintings", name: "Abstract Gold Lines", desc: "Black canvas with golden abstract line art", price: "Contact for Price", img: "https://i.ibb.co/zTTCnXSd/Whats-App-Image-2026-09-12-at-10-42-14-PM.jpg" },
+  { id: 32, cat: "Wall Paintings", name: "Cherry Blossom Tree", desc: "Pink cherry blossom tree on white canvas", price: "Contact for Price", img: "https://i.ibb.co/8n2CKFmG/Whats-App-Image-2026-09-12-at-10-40-39-PM.jpg" },
+  { id: 33, cat: "Wall Paintings", name: "House Scenery", desc: "Beautiful house scenery with blossom season", price: "Contact for Price", img: "https://i.ibb.co/0yXXZc03/Whats-App-Image-2026-09-12-at-10-40-38-PM.jpg" },
+  { id: 34, cat: "Wall Paintings", name: "Islamic Calligraphy Art", desc: "Allah name in modern gold calligraphy", price: "Contact for Price", img: "https://i.ibb.co/1f0mfQr8/Whats-App-Image-2026-09-12-at-10-40-38-PM-1.jpg" },
+  { id: 35, cat: "Wall Paintings", name: "Lotus Pond Painting", desc: "Pink lotus flowers in green pond", price: "Contact for Price", img: "https://i.ibb.co/VcCdTfsM/Whats-App-Image-2026-09-12-at-10-40-35-PM.jpg" },
+  { id: 36, cat: "Wall Paintings", name: "The Art of Elegance", desc: "Outlined flowers perfectly aligned with solids", price: "Contact for Price", img: "https://i.ibb.co/8gpFFRBC/Whats-App-Image-2026-09-12-at-10-38-27-PM.jpg" },
+  { id: 37, cat: "Wall Paintings", name: "Three Masterpieces Wall", desc: "A wall having absolutely beautiful projects hung on it", price: "Contact for Price", img: "https://i.ibb.co/27HZYFfw/Whats-App-Image-2026-09-12-at-10-03-41-PM.jpg" },
+  { id: 38, cat: "Wall Paintings", name: "Falcon Feather Art", desc: "Big falcons/pigeons feather with silver details", price: "Contact for Price", img: "https://i.ibb.co/YFW72njx/Whats-App-Image-2026-09-12-at-10-40-39-PM-1.jpg" },
+  { id: 39, cat: "Wall Paintings", name: "Sunflower Field", desc: "White sunflower with golden touch landscape", price: "Contact for Price", img: "https://i.ibb.co/vCBj5Z0n/Whats-App-Image-2026-09-12-at-10-10-58-PM.jpg" },
+  { id: 40, cat: "Wall Paintings", name: "Golden Autumn Tree Portrait Canvas", desc: "Golden palm tree with small garnished details painting", price: "Contact for Price", img: "https://i.ibb.co/Sw0W0kTz/Whats-App-Image-2026-09-12-at-10-45-45-PM.jpg" },
+  { id: 41, cat: "Wall Paintings", name: "Relaxing Moments", desc: "Women wearing blue shirt holding a Coffee cup relaxing", price: "Contact for Price", img: "https://i.ibb.co/Cx9FtFz/Whats-App-Image-2026-09-12-at-10-40-34-PM-2.jpg" },
+  { id: 42, cat: "Wall Paintings", name: "Rose Bouquet Painting", desc: "Red rose bouquet in vase", price: "Contact for Price", img: "https://i.ibb.co/LDhLLxNH/Whats-App-Image-2026-09-12-at-10-40-40-PM.jpg" }
 ];
 
-const PRODUCTS = [
-  // 1. FABRIC PAINT - 16 ITEMS
-  {
-    id: 1,
-    cat: "Fabric Paint",
-    name: "Handpainted Tulip Kurta Set",
-    desc: "Pink tulips on light green kurta with dupatta",
-    price: "Contact for Price",
-    img: "https://i.ibb.co/n8nrFK4h/Whats-App-Image-2026-09-12-at-11-19-55-PM.jpg"
-  },
-  {
-    id: 2,
-    cat: "Fabric Paint",
-    name: "White Daisy Kurta Set",
-    desc: "White kurta with pink daisy handpaint",
-    price: "Contact for Price",
-    img: "https://i.ibb.co/7dqng1zM/Whats-App-Image-2026-09-12-at-11-20-06-PM.jpg"
-  },
-  {
-    id: 3,
-    cat: "Fabric Paint",
-    name: "Mint Green Floral Lehenga",
-    desc: "Mint choli with large coral handpainted flowers",
-    price: "Contact for Price",
-    img: "https://i.ibb.co/k63NS3yr/Whats-App-Image-2026-09-12-at-11-20-03-PM-2.jpg"
-  },
-  {
-    id: 4,
-    cat: "Fabric Paint",
-    name: "Beige Purple Rose 3pc",
-    desc: "Beige suit with purple roses and magenta border",
-    price: "Contact for Price",
-    img: "https://i.ibb.co/HDK89t60/Whats-App-Image-2026-09-12-at-11-20-02-PM.jpg"
-  },
-  {
-    id: 5,
-    cat: "Fabric Paint",
-    name: "Sky Blue Magnolia 3pc",
-    desc: "Sky blue kurta with large purple magnolia flowers",
-    price: "Contact for Price",
-    img: "https://i.ibb.co/rf5RLxbP/Whats-App-Image-2026-09-12-at-11-20-02-PM-1.jpg"
-  },
-  {
-    id: 6,
-    cat: "Fabric Paint",
-    name: "White Pink Floral Lehenga",
-    desc: "White lehenga with pink florals and yellow accents",
-    price: "Contact for Price",
-    img: "https://i.ibb.co/n8nrFK4h/Whats-App-Image-2026-09-12-at-11-19-55-PM.jpg"
-  },
-  {
-    id: 7,
-    cat: "Fabric Paint",
-    name: "Baby Eid Dress",
-    desc: "Handpainted Eid Mubarak collar dress for kids",
-    price: "Contact for Price",
-    img: "https://i.ibb.co/Gf2pNmpN/Whats-App-Image-2026-09-12-at-10-58-11-PM.jpg"
-  },
-  {
-    id: 8,
-    cat: "Fabric Paint",
-    name: "Yellow Floral Kurta",
-    desc: "Yellow base with handpainted pink flowers",
-    price: "Contact for Price",
-    img: "https://i.ibb.co/ccvh6M56/Whats-App-Image-2026-09-12-at-11-20-04-PM.jpg"
-  },
-  {
-    id: 9,
-    cat: "Fabric Paint",
-    name: "Blue Peacock Kurta",
-    desc: "Royal blue kurta with peacock feather paint",
-    price: "Contact for Price",
-    img: "https://i.ibb.co/rf5RLxbP/Whats-App-Image-2026-09-12-at-11-20-02-PM-1.jpg"
-  },
-  {
-    id: 10,
-    cat: "Fabric Paint",
-    name: "Lavender Floral 2pc",
-    desc: "Lavender kurta with white flower bunches",
-    price: "Contact for Price",
-    img: "https://i.ibb.co/jP5DYG8Z/Whats-App-Image-2026-09-12-at-11-13-08-PM.jpg"
-  },
-  {
-    id: 11,
-    cat: "Fabric Paint",
-    name: "Orange Marigold Lehenga",
-    desc: "Orange shalwar kameez with yellow marigold paint",
-    price: "Contact for Price",
-    img: "https://i.ibb.co/XZxgQGVm/Whats-App-Image-2026-09-12-at-11-20-07-PM-1.jpg"
-  },
-  {
-    id: 12,
-    cat: "
+function PaintkariGallery() {
+  const [activeCat, setActiveCat] = React.useState("All");
+  const [activeImage, setActiveImage] = React.useState(0);
+  const filtered = activeCat === "All" ? PRODUCTS : PRODUCTS.filter(p => p.cat === activeCat);
+  const whatsappLink = (p) => `https://wa.me/${WHATSAPP_NUMBER}?text=Salam! I want to order: ${p.name} - ${p.price}`;
+
+  return (
+    <div className="min-h-screen w-full bg-[#f5f4f3] p-4 md:p-8">
+      <h1 className="text-center text-4xl md:text-6xl font-bold text-[#3d2c2e] mb-2">PAINTKARI BY FAIZA</h1>
+      <p className="text-center text-gray-600 mb-8">Handpainted Art & Resin Work</p>
+
+      <div className="flex flex-wrap justify-center gap-3 mb-10">
+        {CATEGORIES.map(cat => (
+          <button key={cat} onClick={() => setActiveCat(cat)}
+            className={`px-5 py-2 rounded-full border-2 transition-all ${activeCat === cat ? "bg-[#3d2c2e] text-white border-[#3d2c2e]" : "bg-white text-[#3d2c2e] border-[#3d2c2e]"}`}>
+            {cat}
+          </button>
+        ))}
+      </div>
+
+      <div className="flex flex-wrap w-full items-center justify-center gap-3 mb-16">
+        {filtered.map((product, index) => (
+          <motion.div key={product.id} layout
+            className="relative cursor-pointer overflow-hidden rounded-3xl shadow-lg"
+            initial={{ width: "5rem", height: "24rem" }}
+            animate={{ width: activeImage === index ? "24rem" : "5rem", height: "24rem" }}
+            transition={{ duration: 0.3, ease: "easeInOut" }}
+            onClick={() => setActiveImage(index)} onMouseEnter={() => setActiveImage(index)}
+          >
+            <AnimatePresence>
+              {activeImage === index && (
+                <motion.div initial={{opacity: 0}} animate={{opacity: 1}} exit={{opacity: 0}}
+                  className="absolute z-10 h-full w-full bg-gradient-to-t from-black/70 to-transparent p-4 flex flex-col justify-end">
+                  <h3 className="text-white text-xl font-bold">{product.name}</h3>
+                  <p className="text-white/80 text-sm">{product.desc}</p>
+                  <p className="text-yellow-300 font-semibold my-2">{product.price}</p>
+                  <a href={whatsappLink(product)} target="_blank" className="bg-green-500 text-white px-4 py-2 rounded-lg text-center font-semibold">Order on WhatsApp</a>
+                </motion.div>
+              )}
+            </AnimatePresence>
+            <img src={product.img} className="w-full h-full object-cover" alt={product.name} />
+          </motion.div>
+        ))}
+      </div>
+
+      <footer className="border-t border-gray-300 pt-8 text-center">
+        <h3 className="text-2xl font-bold text-[#3d2c2e] mb-4">Follow Us</h3>
+        <div className="flex justify-center gap-6 mb-4">
+          <a href="https://www.instagram.com/paintkaribyfaiza" target="_blank" className="font-semibold">Instagram</a>
+          <a href="https://youtube.com/@paintkaribyfaiza" target="_blank" className="font-semibold">YouTube</a>
+          <a href={`https://wa.me/${WHATSAPP_NUMBER}`} target="_blank" className="font-semibold">WhatsApp</a>
+        </div>
+        <p className="text-gray-500 text-sm">© 2026 PAINTKARI BY FAIZA</p>
+      </footer>
+    </div>
+  )
+}
+
+const root = ReactDOM.createRoot(document.getElementById('root'));
+root.render(<PaintkariGallery />);
+</script>
+</body>
+</html>
