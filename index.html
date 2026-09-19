@@ -1,75 +1,110 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>PaintKari By Faiza</title>
-<script src="https://cdn.tailwindcss.com"></script>
-</head>
-<body class="bg-white">
-<div class="max-w-7xl mx-auto p-4">
-<h1 class="text-3xl font-bold text-center my-6">PAINTKARI BY FAIZA</h1>
-<p class="text-center mb-6">Handpainted Art & Resin Work</p>
 
-<div id="cats" class="flex flex-wrap gap-2 justify-center mb-6"></div>
-<div id="products" class="grid grid-cols-1 md:grid-cols-3 gap-6"></div>
-</div>
 
-<script>
+"use client";
+import { motion, AnimatePresence } from "framer-motion";
+import React, { useState } from "react";
+
 const WHATSAPP_NUMBER = "923422142565";
-const CATEGORIES = ["All","Fabric Paint","Bedsheets","Paint Hangings","Resin Work","Wall Paintings"];
 
-// Tumhare products yahan ayenge - tumhari purani file se copy kar lena
-const PRODUCTS = [
- { id:1, cat:"Fabric Paint", name:"Handpainted Tulip Kurta Set", price:"Contact for Price", img:"https://i.ibb.co/sample.jpg" },
- // ... baki products yahan
+const CATEGORIES = [
+  "All",
+  "Fabric Paint",
+  "Bedsheets",
+  "Paint Hangings",
+  "Resin Work",
+  "Wall Paintings"
 ];
 
-let activeCat = "All";
-function renderCats(){
- document.getElementById('cats').innerHTML = CATEGORIES.map(c=> 
-  `<button onclick="filterCat('${c}')" class="px-4 py-2 rounded-full border ${activeCat===c?'bg-black text-white':'bg-white'}">${c}</button>`
- ).join('');
-}
-function filterCat(c){ activeCat=c; renderCats(); renderProducts(); }
-function renderProducts(){
- let filtered = activeCat==="All" ? PRODUCTS : PRODUCTS.filter(p=>p.cat===activeCat);
- document.getElementById('products').innerHTML = filtered.map(p=> `
-  <div class="border rounded-xl overflow-hidden shadow">
-   <img src="${p.img}" class="w-full h-64 object-cover">
-   <div class="p-3">
-    <h3 class="font-bold">${p.name}</h3>
-    <p class="text-sm text-gray-500">${p.cat}</p>
-    <p class="my-2">${p.price}</p>
-    <a href="https://wa.me/${WHATSAPP_NUMBER}?text=Salam! I want to order: ${p.name}" target="_blank" class="block bg-green-500 text-white text-center py-2 rounded">Order on WhatsApp</a>
-   </div>
-  </div>
- `).join('');
-}
-renderCats(); renderProducts();
-</script>
-</body>
-</html> font-semibold my-2">{product.price}</p>
-                  <a href={whatsappLink(product)} target="_blank" className="bg-green-500 text-white px-4 py-2 rounded-lg text-center font-semibold">Order on WhatsApp</a>
-                </motion.div>
-              )}
-            </AnimatePresence>
-            <img src={product.img} className="size-full object-cover" alt={product.name} />
-          </motion.div>
-        ))}
-      </div>
-
-      {/* SOCIAL HANDLES FOOTER - SIRF YE NAYA ADD KIYA HAI */}
-      <footer className="border-t border-gray-300 pt-8 text-center">
-        <h3 className="text-2xl font-bold text-[#3d2c2e] mb-4">Follow Us</h3>
-        <div className="flex justify-center gap-6 mb-4">
-          <a href="https://www.instagram.com/paintkaribyfaiza?stkn=MWtsMjk3bjFzMWZ3bg==" target="_blank" className="text-[#3d2c2e] hover:text-pink-500 font-semibold">Instagram</a>
-          <a href="https://youtube.com/@paintkaribyfaiza?si=k8jIdD34QRqiQKz7" target="_blank" className="text-[#3d2c2e] hover:text-blue-600 font-semibold">Facebook</a>
-          <a href={`https://wa.me/${WHATSAPP_NUMBER}`} target="_blank" className="text-[#3d2c2e] hover:text-green-500 font-semibold">WhatsApp</a>
-        </div>
-        <p className="text-gray-500 text-sm">© 2026 PAINTKARI BY FAIZA. All Rights Reserved. </p>
-      </footer>
-    </div>
-  )
-}
-
+const PRODUCTS = [
+  // 1. FABRIC PAINT - 16 ITEMS
+  {
+    id: 1,
+    cat: "Fabric Paint",
+    name: "Handpainted Tulip Kurta Set",
+    desc: "Pink tulips on light green kurta with dupatta",
+    price: "Contact for Price",
+    img: "https://i.ibb.co/n8nrFK4h/Whats-App-Image-2026-09-12-at-11-19-55-PM.jpg"
+  },
+  {
+    id: 2,
+    cat: "Fabric Paint",
+    name: "White Daisy Kurta Set",
+    desc: "White kurta with pink daisy handpaint",
+    price: "Contact for Price",
+    img: "https://i.ibb.co/7dqng1zM/Whats-App-Image-2026-09-12-at-11-20-06-PM.jpg"
+  },
+  {
+    id: 3,
+    cat: "Fabric Paint",
+    name: "Mint Green Floral Lehenga",
+    desc: "Mint choli with large coral handpainted flowers",
+    price: "Contact for Price",
+    img: "https://i.ibb.co/k63NS3yr/Whats-App-Image-2026-09-12-at-11-20-03-PM-2.jpg"
+  },
+  {
+    id: 4,
+    cat: "Fabric Paint",
+    name: "Beige Purple Rose 3pc",
+    desc: "Beige suit with purple roses and magenta border",
+    price: "Contact for Price",
+    img: "https://i.ibb.co/HDK89t60/Whats-App-Image-2026-09-12-at-11-20-02-PM.jpg"
+  },
+  {
+    id: 5,
+    cat: "Fabric Paint",
+    name: "Sky Blue Magnolia 3pc",
+    desc: "Sky blue kurta with large purple magnolia flowers",
+    price: "Contact for Price",
+    img: "https://i.ibb.co/rf5RLxbP/Whats-App-Image-2026-09-12-at-11-20-02-PM-1.jpg"
+  },
+  {
+    id: 6,
+    cat: "Fabric Paint",
+    name: "White Pink Floral Lehenga",
+    desc: "White lehenga with pink florals and yellow accents",
+    price: "Contact for Price",
+    img: "https://i.ibb.co/n8nrFK4h/Whats-App-Image-2026-09-12-at-11-19-55-PM.jpg"
+  },
+  {
+    id: 7,
+    cat: "Fabric Paint",
+    name: "Baby Eid Dress",
+    desc: "Handpainted Eid Mubarak collar dress for kids",
+    price: "Contact for Price",
+    img: "https://i.ibb.co/Gf2pNmpN/Whats-App-Image-2026-09-12-at-10-58-11-PM.jpg"
+  },
+  {
+    id: 8,
+    cat: "Fabric Paint",
+    name: "Yellow Floral Kurta",
+    desc: "Yellow base with handpainted pink flowers",
+    price: "Contact for Price",
+    img: "https://i.ibb.co/ccvh6M56/Whats-App-Image-2026-09-12-at-11-20-04-PM.jpg"
+  },
+  {
+    id: 9,
+    cat: "Fabric Paint",
+    name: "Blue Peacock Kurta",
+    desc: "Royal blue kurta with peacock feather paint",
+    price: "Contact for Price",
+    img: "https://i.ibb.co/rf5RLxbP/Whats-App-Image-2026-09-12-at-11-20-02-PM-1.jpg"
+  },
+  {
+    id: 10,
+    cat: "Fabric Paint",
+    name: "Lavender Floral 2pc",
+    desc: "Lavender kurta with white flower bunches",
+    price: "Contact for Price",
+    img: "https://i.ibb.co/jP5DYG8Z/Whats-App-Image-2026-09-12-at-11-13-08-PM.jpg"
+  },
+  {
+    id: 11,
+    cat: "Fabric Paint",
+    name: "Orange Marigold Lehenga",
+    desc: "Orange shalwar kameez with yellow marigold paint",
+    price: "Contact for Price",
+    img: "https://i.ibb.co/XZxgQGVm/Whats-App-Image-2026-09-12-at-11-20-07-PM-1.jpg"
+  },
+  {
+    id: 12,
+    cat: "
