@@ -1,7 +1,6 @@
 
 
-
-  <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
@@ -22,7 +21,7 @@
 const { useState } = React;
 const { motion, AnimatePresence } = Motion;
 
-const WHATSAPP_NUMBER = "923422142565";
+const INSTAGRAM_LINK = "https://www.instagram.com/paintkaribyfaiza?stkn=MWdmM3E0MzdoMnhjMQ==";
 const CATEGORIES = ["All","Fabric Paint","Bedsheets","Paint Hangings","Resin Work","Wall Paintings"];
 const PRODUCTS = [
   { id: 1, cat: "Fabric Paint", name: "Handpainted Tulip Kurta Set", desc: "Pink tulips on light green kurta with dupatta", price: "Contact for Price", img: "https://i.ibb.co/n8nrFK4h/Whats-App-Image-2026-09-12-at-11-19-55-PM.jpg" },
@@ -73,7 +72,6 @@ function PaintkariGallery() {
   const [activeCat, setActiveCat] = React.useState("All");
   const [activeImage, setActiveImage] = React.useState(0);
   const filtered = activeCat === "All" ? PRODUCTS : PRODUCTS.filter(p => p.cat === activeCat);
-  const whatsappLink = (p) => `https://wa.me/${WHATSAPP_NUMBER}?text=Salam! I want to order: ${p.name} - ${p.price}`;
 
   return (
     <div className="min-h-screen w-full bg-[#f5f4f3] p-4 md:p-8">
@@ -105,7 +103,7 @@ function PaintkariGallery() {
                   <h3 className="text-white text-xl font-bold">{product.name}</h3>
                   <p className="text-white/80 text-sm">{product.desc}</p>
                   <p className="text-yellow-300 font-semibold my-2">{product.price}</p>
-                  <a href={whatsappLink(product)} target="_blank" className="bg-green-500 text-white px-4 py-2 rounded-lg text-center font-semibold">Order on WhatsApp</a>
+                  <a href={INSTAGRAM_LINK} target="_blank" className="bg-pink-500 text-white px-4 py-2 rounded-lg text-center font-semibold">Order on Instagram</a>
                 </motion.div>
               )}
             </AnimatePresence>
@@ -117,9 +115,8 @@ function PaintkariGallery() {
       <footer className="border-t border-gray-300 pt-8 text-center">
         <h3 className="text-2xl font-bold text-[#3d2c2e] mb-4">Follow Us</h3>
         <div className="flex justify-center gap-6 mb-4">
-          <a href="https://www.instagram.com/paintkaribyfaiza" target="_blank" className="font-semibold">Instagram</a>
+          <a href={INSTAGRAM_LINK} target="_blank" className="font-semibold">Instagram</a>
           <a href="https://youtube.com/@paintkaribyfaiza" target="_blank" className="font-semibold">YouTube</a>
-          <a href={`https://wa.me/${WHATSAPP_NUMBER}`} target="_blank" className="font-semibold">WhatsApp</a>
         </div>
         <p className="text-gray-500 text-sm">© 2026 PAINTKARI BY FAIZA</p>
       </footer>
@@ -132,3 +129,5 @@ root.render(<PaintkariGallery />);
 </script>
 </body>
 </html>
+
+ 
